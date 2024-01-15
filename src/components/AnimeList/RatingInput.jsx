@@ -4,50 +4,32 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Rating from "react-star-ratings";
 
-const RatingInput = ({ anime_mal_id = "", user_email = "", anime_title = "", rating = 0, id = 0 }) => {
-    const [newRating, setRating] = useState(rating)
-    const [isChange, setIsChange] = useState(false)
-    const [notifMessage, setNotifMessage] = useState("")
+const RatingInput = ({ anime_mal_id = "", anime_title = ""}) => {
+    const [newRating, setRating] = useState(0)
+    const [isCreated, setIsCreated] = useState(false)
     const router = useRouter()
     
     const handleRating = async (newRating) => {
-        if(!rating){
-            const data = { anime_mal_id, user_email, anime_title, rating: newRating }
+            const data = { anime_mal_id, anime_title, rating: newRating }
             setRating(newRating)
-            const response = await fetch("/api/v1/rating/create", {
+            const response = await fetch("/api/v1/rating", {
                 method: "POST",
                 body: JSON.stringify(data)
             })
 
             const postRating = await response.json()
             if(postRating.isCreated) {
-                setIsChange(true)
-                setNotifMessage("Berhasil menambahkan rating!");
+                setIsCreated(true)
                 router.refresh()
             }
             return
-        } else {
-            const data = { id, rating: newRating }
-            setRating(newRating)
-            const response = await fetch("/api/v1/rating/update", {
-                method: "POST",
-                body: JSON.stringify(data)
-            })
-
-            const postRating = await response.json()
-            if(postRating.isUpdated) {
-                setIsChange(true)
-                setNotifMessage("Berhasil mengupdate rating!");
-                router.refresh()
-            }
-            return
-        } 
     }
 
     return (
         <>
-            {isChange &&
-             <p className="text-color-accent mb-1">{notifMessage}</p>
+            <h3 className="text-color-primary lg:text-2xl text-md">Rating</h3>
+            {isCreated &&
+             <p className="text-color-accent mb-1">Berhasil menambahkan rating!</p>
             }
             <Rating
                 rating={newRating} 

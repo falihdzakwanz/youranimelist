@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-const CommentInput = ({ anime_mal_id, user_email, username, anime_title}) => {
+const CommentInput = ({ anime_mal_id, anime_title}) => {
     const [comment, setComment] = useState("")
     const [isCreated, setIsCreated] = useState(null)
     const [errorMessage, setErrorMessage] = useState("")
@@ -16,7 +16,7 @@ const CommentInput = ({ anime_mal_id, user_email, username, anime_title}) => {
 
     const handlePosting = async (ev) => {
         ev.preventDefault()
-        const data = { anime_mal_id, user_email, comment, username, anime_title }
+        const data = { anime_mal_id, comment, anime_title }
 
         if(comment.trim().length > 3){
             const response = await fetch("/api/v1/comment", {
@@ -29,6 +29,9 @@ const CommentInput = ({ anime_mal_id, user_email, username, anime_title}) => {
                 setIsCreated(true)
                 setComment("")
                 router.refresh()
+            } else {
+                setIsCreated(false)
+                setErrorMessage("Gagal menambahkan komentar!")
             }
             return
         } else {
@@ -41,7 +44,7 @@ const CommentInput = ({ anime_mal_id, user_email, username, anime_title}) => {
     return (
         <div className="flex flex-col gap-2">
             {isCreated ? 
-                <p className="text-color-accent">Postingan berhasil terikirm!</p>
+                <p className="text-color-accent">Berhasil menambahkan Komentar!</p>
             :
                 errorMessage && <p className="text-color-danger italic">{errorMessage}</p>
             }

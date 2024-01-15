@@ -1,40 +1,23 @@
-"use client";
+"use client"
 
-import { useState } from "react";
 import YouTube from "react-youtube";
+import { useWindowDimensions } from "react-native-web";
 
-const VideoPlayer = ({ youtubeId }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const handleVideoPlayer = () => {
-    setIsOpen((prevState) => !prevState);
-  };
-
+const VideoPlayer = ({ youtubeId }) => { 
+  const { width, height } = useWindowDimensions();
+  const aspectRatio = 16 / 9;
+  const videoWidth = Math.min(width, height * aspectRatio);
+  const videoHeight = videoWidth / aspectRatio;
   const option = {
-    width: "300",
-    height: "250",
+    width: "100%",
+    height: videoHeight
   };
 
-  const Player = () => {
-    return (
-      <div className="fixed bottom-2 right-2">
-        <button className="text-color-primary float-right bg-color-secondary px-3 mb-1" onClick={handleVideoPlayer}>
-          X
-        </button>
-
-        <YouTube videoId={youtubeId} onReady={(event) => event.target.pauseVideo()} opts={option} />
-      </div>
-    );
-  };
-
-  const ButtonOpenPlayer = () => {
-    return (
-        <button className="rounded fixed bottom-5 right-5 w-32 bg-color-primary text-color-dark text-xl hover:bg-color-accent transition-all shadow-xl" onClick={handleVideoPlayer}>Tonton Trailer</button>
-    )
-  }
-
-
-  return isOpen ? <Player /> : <ButtonOpenPlayer />;
+  return (
+    <div className="lg:w-2/3 w-full"> 
+      <YouTube videoId={youtubeId} onReady={(event) => event.target.pauseVideo()} opts={option}/>
+    </div>
+  );
 };
 
-export default VideoPlayer;
+export default VideoPlayer

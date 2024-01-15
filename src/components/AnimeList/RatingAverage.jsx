@@ -9,7 +9,7 @@ const RatingAverage =  async ({ anime_mal_id }) => {
         return 0;
     } else {
         const sum = ratings.reduce((acc, cur) => acc + cur.rating, 0);
-        const average = sum / ratings.length;
+        const average = (sum / ratings.length).toFixed(1);
         return average;
     }
 };
