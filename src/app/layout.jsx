@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Gabarito, Roboto } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import './globals.css'
