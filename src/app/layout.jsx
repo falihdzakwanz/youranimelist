@@ -2,27 +2,25 @@
 
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { SessionProvider } from 'next-auth/react'
-import { Gabarito, Roboto } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import './globals.css'
-import { useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
-const gabarito = Gabarito({ subsets: ['latin'] })
 const roboto = Roboto({
-  weight: ['400', '700'],
+  weight: ['700'],
   subsets: ['latin']
 })
 
-const disableNavbar = ["/login", "register"]
-
 export default function RootLayout({ children }) {
-  const router = useRouter()
-  const pathName = router.pathname
+  const disableNavbar = ["/login", "/register"]
+  const pathName = usePathname()
+
   return (
     <html lang="en">
-      <body className={`${gabarito.className || roboto.className} bg-color-dark`} suppressHydrationWarning={true}>
+      <body className={`${roboto.className} bg-color-dark`} suppressHydrationWarning={true}>
         <SessionProvider>
-          {disableNavbar.includes(pathName) && <Navbar />}
+          {!disableNavbar.includes(pathName) && <Navbar />}
           {children}
         </SessionProvider>
       </body>
