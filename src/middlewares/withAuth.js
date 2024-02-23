@@ -1,6 +1,6 @@
 import { getToken } from "next-auth/jwt"
 
-export default function withAuth(middleware, requireAuth){
+export default function withAuth(middleware){
     return async (req, next) => {
         const pathname = req.nextUrl.pathname
 
