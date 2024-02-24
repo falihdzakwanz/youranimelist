@@ -9,24 +9,44 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-
 model User {
   id                  Int @id @default(autoincrement())
   username            String
   email               String @unique
   password            String
+  collections         Collection[]
+  comments            Comment[]
+  ratings             Rating[]
+}
+
+model Collection {
+  id                  Int @id @default(autoincrement())
+  user_email          String
+  anime_mal_id        String
+  anime_title         String
+  anime_image_webp    String
+  anime_image_jpg     String
+  user                User @relation(fields: [user_email], references: [email])
+
+  @@unique([user_email, anime_mal_id])
 }
 
 model Comment {
   id                  Int @id @default(autoincrement())
+  user_email          String
   anime_mal_id        String
-  comment             String
   anime_title         String
+  comment             String
+  user                User @relation(fields: [user_email], references: [email])
 }
 
 model Rating {
   id                  Int @id @default(autoincrement())
-  anime_mal_id        String
+  user_email          String
+  anime_mal_id        String 
   anime_title         String
   rating              Int
+  user                User @relation(fields: [user_email], references: [email])
+
+  @@unique([user_email, anime_mal_id])
 }
