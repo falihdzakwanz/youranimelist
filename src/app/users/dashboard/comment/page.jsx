@@ -1,4 +1,4 @@
-import Header from "@/components/Dashboard/Header"
+import Header from "@/components/Dashboard/DashboardHeader"
 import { authUserSession } from "@/libs/auth-libs"
 import prisma from "@/libs/prisma"
 import Link from "next/link"
