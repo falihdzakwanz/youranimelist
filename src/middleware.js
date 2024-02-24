@@ -7,4 +7,4 @@ export function mainMiddleware(request) {
     return res
 }
 
-export default withAuth(mainMiddleware)
+export default withAuth(mainMiddleware, ["/login", "/register"])
