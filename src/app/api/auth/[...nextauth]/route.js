@@ -3,7 +3,7 @@ import NextAuth from "next-auth/next"
 import { login } from "@/libs/auth-libs";
 import { compare } from "bcrypt";
 
-const authOptions  = {
+export const authOptions  = {
     session: {
         strategy: 'jwt',
     },
@@ -34,21 +34,20 @@ const authOptions  = {
         })
     ],
     callbacks: {
-        async jwt({ token, account, profile, user }) {
+        async jwt({ token, account, user }) {
             if (account?.provider === "credentials"){
                 token.email = user.email;
-                token.name = user.name;
+                token.username = user.username;
             }
             return token;
         },
-
-        async session({session, token}){
+        async session({session, token}){            
             if ("email" in token) {
                 session.user.email = token.email;
             }
-            if ("name" in token) {
-                session.user.name = token.name;
-            }
+            if ("username" in token) {
+                session.user.name = token.username;
+            }          
             return session;
         }
     },
