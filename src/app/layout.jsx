@@ -8,7 +8,7 @@ import './globals.css'
 import { usePathname } from "next/navigation"
 
 const roboto = Roboto({
-  weight: ['700'],
+  weight: ['500', '700'],
   subsets: ['latin']
 })
 
