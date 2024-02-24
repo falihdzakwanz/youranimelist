@@ -1,5 +1,7 @@
 import prisma from "@/libs/prisma"
 import bcrypt from "bcrypt"
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export function validateUserInput(dataUser) {
     if (!dataUser.email || !dataUser.email.includes('@')) {
@@ -68,4 +70,9 @@ export async function login(dataUser) {
     } else {
         return null
     }
+}
+
+export const authUserSession = async() => {
+    const session = await getServerSession(authOptions)
+    return session?.user
 }
