@@ -3,27 +3,26 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-const CommentInput = ({ anime_mal_id, anime_title}) => {
+const CommentInput = ({ anime_mal_id, anime_title }) => {
     const [comment, setComment] = useState("")
     const [isCreated, setIsCreated] = useState(null)
     const [errorMessage, setErrorMessage] = useState("")
 
     const router = useRouter()
 
-    const handleInput = (ev) => {
-        setComment(ev.target.value)
+    const handleInput = (e) => {
+        setComment(e.target.value)
     }
 
-    const handlePosting = async (ev) => {
-        ev.preventDefault()
-        const data = { anime_mal_id, comment, anime_title }
+    const handlePosting = async (e) => {
+        e.preventDefault()
+        const data = { anime_mal_id, anime_title, comment }
 
         if(comment.trim().length > 3){
-            const response = await fetch("/api/v1/comment", {
+            const response = await fetch("/api/v1/comment/create", {
                 method: "POST",
                 body: JSON.stringify(data)
             })
-
             const postComment = await response.json()
             if(postComment.isCreated) {
                 setIsCreated(true)
@@ -41,12 +40,14 @@ const CommentInput = ({ anime_mal_id, anime_title}) => {
         }
     }
 
+
+
     return (
         <div className="flex flex-col gap-2">
             {isCreated ? 
-                <p className="text-color-accent">Berhasil menambahkan Komentar!</p>
+                <p className="text-color-accent text-sm">Berhasil menambahkan Komentar!</p>
             :
-                errorMessage && <p className="text-color-danger italic">{errorMessage}</p>
+                errorMessage && <p className="text-color-danger italic text-sm">{errorMessage}</p>
             }
             <textarea 
                 onChange={handleInput} 
