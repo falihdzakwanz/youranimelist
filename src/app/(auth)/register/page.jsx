@@ -44,8 +44,8 @@ const Page = () => {
             setIsLoading(false)
         } else {
             e.target.reset()
-            setIsLoading(false)
             router.push("login")
+            setIsLoading(false)
         }
     }
 

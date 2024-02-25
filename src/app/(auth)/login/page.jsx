@@ -35,14 +35,14 @@ const Page = () => {
             })
             if (!response?.error) {
                 e.target.reset()
-                setIsLoading(false)
                 router.push("/users/dashboard")
-            } else {
                 setIsLoading(false)
+            } else {
                 if (response.status === 401) {
                     newErrors.form = "Email or Password is Incorrect."
                     setErrors(newErrors)
                 }
+                setIsLoading(false)
             }
         } catch (error) {
             console.log(error)
