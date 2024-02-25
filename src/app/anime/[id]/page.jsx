@@ -13,12 +13,15 @@ import prisma from "@/libs/prisma"
 const Page = async ({ params: { id } }) => {
     const anime = await getAnimeResponse(`anime/${id}`)
     const user = await authUserSession()
-    const collection = await prisma.collection.findFirst({
-        where: { user_email: user?.email, anime_mal_id: id }
-    })
-    const rating = await prisma.rating.findFirst({
-        where: { user_email: user?.email, anime_mal_id: id }
-    })
+    let collection, rating;
+    if (user) {
+        collection = await prisma.collection.findFirst({
+            where: { user_email: user.email, anime_mal_id: id }
+        })
+        rating = await prisma.rating.findFirst({
+            where: { user_email: user.email, anime_mal_id: id }
+        })
+    }
 
     return (
         <>
