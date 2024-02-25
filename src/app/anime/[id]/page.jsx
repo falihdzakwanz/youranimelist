@@ -8,6 +8,7 @@ import RatingAverage from "@/components/AnimeList/RatingAverage";
 import { authUserSession } from "@/libs/auth-libs"
 import CollectionButton from "@/components/AnimeList/CollectionButton"
 import Link from "next/link"
+import prisma from "@/libs/prisma"
 
 const Page = async ({ params: { id } }) => {
     const anime = await getAnimeResponse(`anime/${id}`)
