@@ -7,7 +7,6 @@ import Rating from "react-star-ratings";
 const RatingInput = ({ anime_mal_id, anime_title , rating = 0, id }) => {
     const [newRating, setRating] = useState(rating)
     const [isChange, setIsChange] = useState(false)
-    const [notifMessage, setNotifMessage] = useState("")
     const router = useRouter()
     
     const handleRating = async (newRating) => {
@@ -22,7 +21,6 @@ const RatingInput = ({ anime_mal_id, anime_title , rating = 0, id }) => {
             const postRating = await response.json()
             if(postRating.isCreated) {
                 setIsChange(true)
-                setNotifMessage("Berhasil menambahkan rating!");
                 router.refresh()
             }
             return
@@ -37,7 +35,6 @@ const RatingInput = ({ anime_mal_id, anime_title , rating = 0, id }) => {
             const postRating = await response.json()
             if(postRating.isUpdated) {
                 setIsChange(true)
-                setNotifMessage("Berhasil mengupdate rating!");
                 router.refresh()
             }
             return
@@ -46,9 +43,6 @@ const RatingInput = ({ anime_mal_id, anime_title , rating = 0, id }) => {
 
     return (
         <>
-            {isChange &&
-             <p className="text-color-accent mb-1">{notifMessage}</p>
-            }
             <Rating
                 rating={newRating} 
                 changeRating={handleRating}

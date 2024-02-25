@@ -44,11 +44,7 @@ const CommentInput = ({ anime_mal_id, anime_title }) => {
 
     return (
         <div className="flex flex-col gap-2">
-            {isCreated ? 
-                <p className="text-color-accent text-sm">Berhasil menambahkan Komentar!</p>
-            :
-                errorMessage && <p className="text-color-danger italic text-sm">{errorMessage}</p>
-            }
+            {!isCreated && errorMessage && <p className="text-color-danger italic text-sm">{errorMessage}</p>}
             <textarea 
                 onChange={handleInput} 
                 value={comment}
