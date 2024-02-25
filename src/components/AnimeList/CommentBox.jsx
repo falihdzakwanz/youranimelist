@@ -14,9 +14,9 @@ const CommentBox = async ({ anime_mal_id }) => {
             {comments.map(comment => {
                 return (
                     <div key={comment.id} className="text-color-dark bg-color-primary p-4 rounded">
-                        <h3 className="text-color-accent">{comment.user.username}</h3>
+                        <h3 className="text-color-accent">{comment?.user.username}</h3>
                         <p>{comment.comment}</p>
-                        {comment.user_email === user.email ? <DeleteButton commentId={comment.id} /> : null }
+                        {comment?.user_email === user?.email ? <DeleteButton commentId={comment?.id} /> : null }
                     </div>
                 )
             })}
