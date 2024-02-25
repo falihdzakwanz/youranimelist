@@ -2,6 +2,11 @@ import AnimeList from "@/components/AnimeList";
 import Header from "@/components/AnimeList/Header";
 import { getAnimeResponse, getNestedAnimeResponse, reproduce } from "../libs/api-libs";
 
+export const metadata = {
+  title: "YourAnimeList",
+  description: "Anime List Website"
+}
+
 const Page = async () => {
   const topAnime = await getAnimeResponse("top/anime", "limit=8");
   let recommendedAnime = await getNestedAnimeResponse("recommendations/anime", "entry");
