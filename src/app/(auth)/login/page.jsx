@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
-import isEmail from "validator/lib/isemail";
+import isEmail from "validator/lib/isEmail";
 
 const Page = () => {
     const router = useRouter()

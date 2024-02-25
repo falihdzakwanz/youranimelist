@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from "next/link"
-import isEmail from "validator/lib/isemail";
+import isEmail from "validator/lib/isEmail";
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
